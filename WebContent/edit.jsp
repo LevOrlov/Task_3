@@ -14,15 +14,15 @@
 <body>
 
 
-<form method="POST" action='UserServlet?action=edit' name="addUser">
+<form method="POST" action='edit?action=edit&id=<c:out value="${user.getId()}"/>' name="addUser" items="${user}" var="user">
     Name : <input
         type="text" name="name"
-        value="<c:out value="" />" /> <br />
+        value="<c:out value="${user.getName()}" />" /> <br />
     Login : <input
         type="text" name="login"
-        value="<c:out value="" />" /> <br />
+        value="<c:out value="${user.getLogin()}" />" /> <br />
     Password : <input type="text" name="password"
-        value="<c:out value="" />" /> <br /><input
+        value="<c:out value="${user.getPassword()}" />" /> <br /><input
         type="submit" value="Submit" />
 </form>
 </body>
