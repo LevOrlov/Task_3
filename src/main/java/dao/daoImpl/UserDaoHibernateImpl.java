@@ -5,8 +5,10 @@ import main.java.dao.UserDao;
 import main.java.dao.UserDaoFactory;
 import main.java.dao.factoryImpl.UserDaoFactoryImpl;
 import main.java.model.User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -40,9 +42,10 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getAllUsers() {
         Session session = DBHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        List<User> list = session.createCriteria(User.class).list();
+        Criteria criteria = session.createCriteria(User.class);
+        List<User> empList = criteria.list();
         session.getTransaction().commit();
-        return list;
+        return empList;
     }
 
     @Override

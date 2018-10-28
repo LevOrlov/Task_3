@@ -13,7 +13,7 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>Name</th>
+        <th>main.java.dao.daoImpl.Name</th>
         <th>Login</th>
         <th>Password</th>
         <th colspan=2>Action</th>

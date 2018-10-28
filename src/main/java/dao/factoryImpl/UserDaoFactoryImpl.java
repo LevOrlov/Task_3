@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
+//TODO getUserDAO() - он смотрит файл где пропети.
 public class UserDaoFactoryImpl implements UserDaoFactory {
 
     @Override
