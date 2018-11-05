@@ -1,9 +1,10 @@
-package main.java.dao.daoImpl;
+package dao.daoImpl;
 
-import main.java.DBHelper;
-import main.java.dao.UserDao;
-import main.java.dao.factoryImpl.UserDaoFactoryImpl;
-import main.java.model.User;
+import dao.DBHelper;
+
+import dao.UserDao;
+import model.User;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void addUser(User application) {
         try {
             PreparedStatement preparedStatement = DBHelper.getConnection()
-                    .prepareStatement("insert into apl(name,login,password) values (?, ?, ?)");
+                    .prepareStatement("insert into table_name(name,login,password) values (?, ?, ?)");
             preparedStatement.setString(1, application.getName());
             preparedStatement.setString(2, application.getLogin());
             preparedStatement.setString(3, application.getPassword());
@@ -33,7 +34,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void deleteUser(int userId) {
         try {
             PreparedStatement preparedStatement = DBHelper.getConnection()
-                    .prepareStatement("delete from apl where id=?");
+                    .prepareStatement("delete from table_name where id=?");
             // Parameters start with 1
             preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
@@ -47,7 +48,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void updateUser(User application) {
         try {
             PreparedStatement preparedStatement = DBHelper.getConnection()
-                    .prepareStatement("update apl set name=?, login=?, password=?" +
+                    .prepareStatement("update table_name set name=?, login=?, password=?" +
                             "where id=?");
             // Parameters start with 1
             preparedStatement.setString(1, application.getName());
@@ -67,8 +68,9 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> users = new ArrayList<User>();
         try {
             Statement statement = DBHelper.getConnection().createStatement();
-            ResultSet rs = statement.executeQuery("select * from apl");
+            ResultSet rs = statement.executeQuery("select * from table_name");
             while (rs.next()) {
+                System.out.println("fffff");
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
@@ -81,6 +83,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
 
         return users;
+
     }
 
     @Override
@@ -88,7 +91,7 @@ public class UserDaoJDBCImpl implements UserDao {
         User user = new User();
         try {
             PreparedStatement preparedStatement = DBHelper.getConnection().
-                    prepareStatement("select * from apl where id=?");
+                    prepareStatement("select * from table_name where id=?");
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {

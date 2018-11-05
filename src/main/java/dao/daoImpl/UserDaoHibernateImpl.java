@@ -1,14 +1,15 @@
-package main.java.dao.daoImpl;
+package dao.daoImpl;
 
-import main.java.DBHelper;
-import main.java.dao.UserDao;
-import main.java.dao.UserDaoFactory;
-import main.java.dao.factoryImpl.UserDaoFactoryImpl;
-import main.java.model.User;
+import dao.DBHelper;
+
+import dao.UserDao;
+
+
+import model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -16,7 +17,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void addUser(User application) {
         Session session = DBHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Integer result = (Integer) session.save(application);
+        int result = (Integer) session.save(application);
         session.getTransaction().commit();
     }
 
@@ -27,6 +28,7 @@ public class UserDaoHibernateImpl implements UserDao {
         User user = (User) session.load(User.class, userId);
         session.delete(user);
         session.getTransaction().commit();
+
     }
 
     @Override
@@ -45,7 +47,10 @@ public class UserDaoHibernateImpl implements UserDao {
         Criteria criteria = session.createCriteria(User.class);
         List<User> empList = criteria.list();
         session.getTransaction().commit();
+        List<? extends Number> numList = new ArrayList<Number>();
+
         return empList;
+
     }
 
     @Override

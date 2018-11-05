@@ -1,8 +1,10 @@
-package main.java.servlet;
+package servlet;
 
-import main.java.DBHelper;
-import main.java.dao.factoryImpl.UserDaoFactoryImpl;
-import org.hibernate.SessionFactory;
+
+import dao.UserDao;
+import dao.factoryImpl.UserDaoFactoryImpl;
+import service.UserServiceImpl;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,23 +18,21 @@ import java.sql.Connection;
 @WebServlet("/delete")
 public class ServletDelete extends HttpServlet {
     private static String LIST_USER = "/listUser.jsp";
-    private UserDaoFactoryImpl dao =new UserDaoFactoryImpl();
-    private Connection connection= DBHelper.getConnection();
-    //private SessionFactory connection= DBHelper.getSessionFactory();
+    UserServiceImpl userDao = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String forward;
         String action = req.getParameter("action");
-        if (action.equalsIgnoreCase("delete")){
+        if (action.equalsIgnoreCase("delete")) {
             int userId = Integer.parseInt(req.getParameter("id"));
-            dao.implDao(connection).deleteUser(userId);
+            userDao.deleteUser(userId);
             forward = LIST_USER;
-            req.setAttribute("users", dao.implDao(connection).getAllUsers());
+            req.setAttribute("users", userDao.getAllUsers());
             RequestDispatcher view = req.getRequestDispatcher(forward);
             view.forward(req, resp);
+        }
     }
-}
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,10 +1,11 @@
-package main.java.model;
+package model;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -54,5 +55,26 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == this) return true;
+        if (object == null ||!(object instanceof User)) return false;
+        User user = (User) object;
+        return id == user.id &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 37;
+        hash = hash * name.hashCode();
+        hash = hash * login.hashCode();
+        hash = hash * id;
+        hash = hash * password.hashCode();
+        return  hash;
     }
 }

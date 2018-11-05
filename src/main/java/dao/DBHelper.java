@@ -1,16 +1,11 @@
-package main.java;
+package dao;
 
+import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
-import org.hibernate.metamodel.Metadata;
-import org.hibernate.metamodel.MetadataSources;
-import org.hibernate.service.ServiceRegistryBuilder;
 
-import javax.imageio.spi.ServiceRegistry;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,8 +13,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 //синглтон, у него есть два метода getConnection и getConfiguration
@@ -29,6 +22,8 @@ public class DBHelper {
     private static SessionFactory sessionFactory = null;
     private static StandardServiceRegistry registry;
     private static DBHelper ourInstance = new DBHelper();
+    private DBHelper() {
+    }
 
     public static DBHelper getInstance() {
         return ourInstance;
@@ -40,7 +35,7 @@ public class DBHelper {
                 return connection;
             else {
                 try {
-                    InputStream inputStream = new FileInputStream("main/resources/db.properties");
+                    InputStream inputStream = DBHelper.class.getClassLoader().getResourceAsStream("jdbc.properties");
                     Properties prop = new Properties();
                     prop.load(inputStream);
                     String driver = prop.getProperty("driver");
@@ -63,8 +58,49 @@ public class DBHelper {
 
         }
     }
+
     public static SessionFactory getSessionFactory() {
-        try {
+        {
+            if (sessionFactory != null)
+                return sessionFactory;
+            else {
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Configuration cfg = new Configuration();
+                    InputStream inputStream = new FileInputStream("main/resources/hb.properties");
+                    Properties prop = new Properties();
+                    prop.load(inputStream);
+                    String driver = prop.getProperty("driver");
+                    String url = prop.getProperty("url");
+                    String user = prop.getProperty("user");
+                    String password = prop.getProperty("password");
+                    String dialect = prop.getProperty("dialect");             ;
+
+                    cfg.setProperty("connection.driver_class", driver);
+                    cfg.setProperty("hibernate.dialect", dialect);
+                    cfg.setProperty("hibernate.connection.url", url);
+                    cfg.setProperty("hibernate.connection.username", user);
+                    cfg.setProperty("hibernate.connection.password", password);
+                    cfg.setProperty("hibernate.current_session_context_class", "thread");
+                    cfg.setProperty("hibernate.connection.autocommit", "thread");
+                    cfg.addAnnotatedClass(User.class);
+                    StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                            .applySettings(cfg.getProperties()).build();
+                    sessionFactory =  cfg.buildSessionFactory(serviceRegistry);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return sessionFactory;
+
+
+            }
+
+        }
+        /*try {
             Class.forName("com.mysql.jdbc.Driver");
             //StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
             Configuration cfg = new Configuration();
@@ -77,9 +113,9 @@ public class DBHelper {
             cfg.setProperty("hibernate.connection.autocommit", "thread");
             cfg.addAnnotatedClass(main.java.model.User.class);
             //вот атк не работает пишет ошибку о том, что нет аннотациий в классе энтити(не известный энтити)
-            /*prop.setProperty("connection.driver_class", "com.mysql.jdbc.Driver");
-            prop.setProperty("connection.driver_class", "com.mysql.jdbc.Driver");*/
-           /*Map<String, String> settings = new HashMap<>();
+            *//*prop.setProperty("connection.driver_class", "com.mysql.jdbc.Driver");
+            prop.setProperty("connection.driver_class", "com.mysql.jdbc.Driver");*//*
+         *//*Map<String, String> settings = new HashMap<>();
             settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
             settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
             settings.put(Environment.USER, "root");
@@ -94,21 +130,21 @@ public class DBHelper {
             registry = registryBuilder.build();
             MetadataSources sources = new MetadataSources(registry);
             Metadata metadata = sources.getMetadataBuilder().build();
-            sessionFactory = metadata.getSessionFactoryBuilder().build();*/
+            sessionFactory = metadata.getSessionFactoryBuilder().build();*//*
             StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(cfg.getProperties()).build();
 
 
-            sessionFactory =  cfg.buildSessionFactory(serviceRegistry);
+            sessionFactory =  cfg.buildSessionFactory(serviceRegistry);*/
 
-        } catch (Throwable ex) {
+        /*} catch (Throwable ex) {
 
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
         return sessionFactory;
-    }
+    }*/
 
-    public DBHelper() {
+
     }
 }

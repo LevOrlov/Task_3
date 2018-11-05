@@ -1,6 +1,6 @@
 package review.abs_class_interface;
 
-public class Car extends Machine implements Operator {
+public class Car extends Machine implements Movable {
     @Override
     public void gas() {
         System.out.println("Car газует быстро!");

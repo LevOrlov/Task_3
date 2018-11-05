@@ -1,9 +1,11 @@
-package main.java.dao.factoryImpl;
+package dao.factoryImpl;
 
-import main.java.dao.UserDao;
-import main.java.dao.UserDaoFactory;
-import main.java.dao.daoImpl.UserDaoHibernateImpl;
-import main.java.dao.daoImpl.UserDaoJDBCImpl;
+import dao.DBHelper;
+import dao.UserDao;
+import dao.daoImpl.UserDaoHibernateImpl;
+import dao.daoImpl.UserDaoJDBCImpl;
+
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
@@ -15,14 +17,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-//TODO getUserDAO() - он смотрит файл где пропети.
-public class UserDaoFactoryImpl implements UserDaoFactory {
 
-    @Override
-    public UserDao implDao(Object connectType) {
-    if ( connectType instanceof Connection){
-        return new UserDaoJDBCImpl();
-    }
-    return new UserDaoHibernateImpl();
+public class UserDaoFactoryImpl {
+    static String dao;
+
+    //TODO getDAO . я в нем должен ничего не принимать ничего. и там читать dao.properties. и возвращать реализацию
+    public static UserDao getDao() {
+
+        try {
+            InputStream inputStream = UserDaoFactoryImpl.class.getClassLoader().getResourceAsStream("dao/dao.properties");
+            Properties prop = new Properties();
+            prop.load(inputStream);
+            dao = prop.getProperty("dao");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (dao.equals("jdbc")) {
+            return new UserDaoJDBCImpl();
+        } else return new UserDaoHibernateImpl();
+
     }
 }
