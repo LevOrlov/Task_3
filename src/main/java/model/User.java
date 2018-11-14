@@ -23,6 +23,8 @@ public class User {
     private String login;
     @Column(name="password")
     private String password;
+    @Column(name="role")
+    private String role;
 
 
     public int getId() {
@@ -55,6 +57,13 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String login) {
+        this.role = role;
     }
 
     @Override

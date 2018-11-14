@@ -8,11 +8,14 @@ import dao.UserDao;
 import model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
+    //TODO общую сессиию на все методы
+    //TODO
     @Override
     public void addUser(User application) {
         Session session = DBHelper.getSessionFactory().getCurrentSession();
@@ -47,7 +50,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Criteria criteria = session.createCriteria(User.class);
         List<User> empList = criteria.list();
         session.getTransaction().commit();
-        List<? extends Number> numList = new ArrayList<Number>();
+
 
         return empList;
 
@@ -58,6 +61,16 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = DBHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         User result = (User) session.load(User.class, userId);
+        session.getTransaction().commit();
+        return result;
+    }
+    public User getUserByLogin(String login) {
+        Session session = DBHelper.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        User result = (User)session.createCriteria(User.class,login)
+                .add(Restrictions.eq("login",login))
+                .uniqueResult();
+
         session.getTransaction().commit();
         return result;
     }

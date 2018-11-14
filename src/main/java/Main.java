@@ -2,18 +2,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
-     //   D:\Java_web1\Task_3\src\main\resources\jdbc.properties
+     //   D:\Java_web1\Task_3\src\main\resources\config.properties
 
-      /*  File file = new File("jdbc.properties");
-        File file2 = new File("D:\\Java_web1\\Task_3\\src\\main\\java\\name.txt");
-        System.out.println(file);
-        System.out.println(file2.isFile());*/
+       // File file = new File("config.properties");
+       // File file2 = new File("D:\\Java_web1\\Task_3\\src\\main\\resources\\config.properties");
+
 
         /*List rawList = new ArrayList<>();
         List<String> list = new ArrayList<>();
@@ -21,7 +19,9 @@ public class Main {
             rawList.add(8);
         System.out.println(rawList.get(0));*/
         // TODO Почему так работает?
-        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("jdbc.properties");
+
+
+        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("config.properties");
         Properties prop = new Properties();
         prop.load(inputStream);
         String driver = prop.getProperty("driver");

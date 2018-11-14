@@ -6,7 +6,6 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +34,7 @@ public class DBHelper {
                 return connection;
             else {
                 try {
-                    InputStream inputStream = DBHelper.class.getClassLoader().getResourceAsStream("jdbc.properties");
+                    InputStream inputStream = DBHelper.class.getClassLoader().getResourceAsStream("config.properties");
                     Properties prop = new Properties();
                     prop.load(inputStream);
                     String driver = prop.getProperty("driver");
@@ -67,15 +66,14 @@ public class DBHelper {
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
                     Configuration cfg = new Configuration();
-                    InputStream inputStream = new FileInputStream("main/resources/hb.properties");
+                    InputStream inputStream = DBHelper.class.getClassLoader().getResourceAsStream("config.properties");
                     Properties prop = new Properties();
                     prop.load(inputStream);
                     String driver = prop.getProperty("driver");
                     String url = prop.getProperty("url");
                     String user = prop.getProperty("user");
                     String password = prop.getProperty("password");
-                    String dialect = prop.getProperty("dialect");             ;
-
+                    String dialect = prop.getProperty("dialect");
                     cfg.setProperty("connection.driver_class", driver);
                     cfg.setProperty("hibernate.dialect", dialect);
                     cfg.setProperty("hibernate.connection.url", url);

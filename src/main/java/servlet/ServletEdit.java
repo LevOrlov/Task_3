@@ -18,6 +18,7 @@ import java.sql.Connection;
 
 @WebServlet("/edit")
 public class ServletEdit extends HttpServlet {
+    //TODO убрать переменный которые используются один раз?строки 29,30 в одну строку
     private static String LIST_USER = "/listUser.jsp";
     UserServiceImpl userDao = new UserServiceImpl();
     @Override

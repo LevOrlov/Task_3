@@ -14,7 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+    @Override
+    public User getUserByLogin(String login) {
+        return null;
+    }
 
+    //TODO общую конектион на все методы
     @Override
     public void addUser(User application) {
         try {
