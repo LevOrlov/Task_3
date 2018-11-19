@@ -14,7 +14,7 @@
 <body>
 
 
-<form method="POST" action='/index?action=signin' name="signIn">
+<form method="POST" action='/index'>
     Login : <input
         type="text" name="login"
         value="<c:out value="" />" /> <br />

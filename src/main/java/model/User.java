@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "table_name")
-@Proxy(lazy=false)
+@Proxy(lazy=false)//надо оставить иначе ошибка
 public class User {
     @Id
     @GenericGenerator(name="kaugen" , strategy="increment")
@@ -62,7 +62,7 @@ public class User {
         return role;
     }
 
-    public void setRole(String login) {
+    public void setRole(String role) {
         this.role = role;
     }
 

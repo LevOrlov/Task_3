@@ -11,27 +11,14 @@
     <title>User</title>
 </head>
 <body>
-<table border=1>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Login</th>
-        <th>Password</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%--@elvariable id="users" type="java.util.List"--%>
-    <c:forEach items="${users}" var="user">
-        <tr>
-            <td><c:out value="${user.getId()}" /></td>
-            <td><c:out value="${user.getName()}" /></td>
-            <td><c:out value="${user.getPassword()}" /></td>
-            <td><c:out value="${user.getLogin()}" /></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-
-</table>
+<h4>Приветствую тебя подаван.</h4>
+<form items="${user}" var="user">
+    Name : <input
+        type="text" name="name"
+        value=${user.getName()} readonly="readonly"> <br />
+    Login : <input
+        type="text" name="login"
+        value=${user.getLogin()} readonly="readonly"> <br />
+</form>
 </body>
 </html>

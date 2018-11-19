@@ -50,8 +50,6 @@ public class UserDaoHibernateImpl implements UserDao {
         Criteria criteria = session.createCriteria(User.class);
         List<User> empList = criteria.list();
         session.getTransaction().commit();
-
-
         return empList;
 
     }

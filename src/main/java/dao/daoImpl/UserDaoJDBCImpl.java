@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    @Override
-    public User getUserByLogin(String login) {
-        return null;
-    }
+
 
     //TODO общую конектион на все методы
     @Override
@@ -104,6 +101,27 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setName(rs.getString("name"));
                 user.setPassword(rs.getString("password"));
                 user.setLogin(rs.getString("login"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+    @Override
+    public User getUserByLogin(String login) {
+        User user = new User();
+        try {
+            PreparedStatement preparedStatement = DBHelper.getConnection().
+                    prepareStatement("select * from table_name where login=?");
+            preparedStatement.setString(1, login);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
+                user.setLogin(rs.getString("login"));
+                user.setRole(rs.getString("role"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
