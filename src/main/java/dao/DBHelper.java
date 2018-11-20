@@ -82,6 +82,7 @@ public class DBHelper {
                     cfg.setProperty("hibernate.connection.password", password);
                     cfg.setProperty("hibernate.current_session_context_class", "thread");
                     cfg.setProperty("hibernate.connection.autocommit", "thread");
+                   // cfg.setProperty("hibernate.hbm2ddl.auto","create-drop");
                     cfg.addAnnotatedClass(User.class);
                     StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                             .applySettings(cfg.getProperties()).build();

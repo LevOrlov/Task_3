@@ -12,7 +12,7 @@ import java.util.Properties;
 public class UserDaoFactoryImpl {
 
 
-    //TODO куда вынести блок if
+
     public static UserDao getDao() {
         String dao = "";
         try {

@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    //TODO общую сессиию на все методы
-    //TODO
     @Override
     public void addUser(User application) {
         Session session = DBHelper.getSessionFactory().getCurrentSession();

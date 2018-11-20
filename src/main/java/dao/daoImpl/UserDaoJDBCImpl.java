@@ -16,7 +16,6 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
 
 
-    //TODO общую конектион на все методы
     @Override
     public void addUser(User application) {
         try {
@@ -108,6 +107,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         return user;
     }
+
     @Override
     public User getUserByLogin(String login) {
         User user = new User();

@@ -10,20 +10,21 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "table_name")
-@Proxy(lazy=false)//надо оставить иначе ошибка
+//TODO  убрать прокси
+@Proxy(lazy=false)//надо оставить иначе ошибка, надо видимо переписать как то без него
 public class User {
     @Id
-    @GenericGenerator(name="kaugen" , strategy="increment")
-    @GeneratedValue(generator="kaugen")
-    @Column(name="id")
+    @GenericGenerator(name="lev" , strategy="increment")
+    @GeneratedValue(generator="lev")
+    //@Column(name="id")
     private int id;
-    @Column(name="name")
+   // @Column(name="name")
     private String name;
-    @Column(name="login")
+   // @Column(name="login")
     private String login;
-    @Column(name="password")
+   // @Column(name="password")
     private String password;
-    @Column(name="role")
+   // @Column(name="role")
     private String role;
 
 
