@@ -75,14 +75,17 @@ public class DBHelper {
                     String user = prop.getProperty("user");
                     String password = prop.getProperty("password");
                     String dialect = prop.getProperty("dialect");
+                    String hbm2ddl = prop.getProperty("hibernate.hbm2ddl.auto");
                     cfg.setProperty("connection.driver_class", driver);
                     cfg.setProperty("hibernate.dialect", dialect);
                     cfg.setProperty("hibernate.connection.url", url);
                     cfg.setProperty("hibernate.connection.username", user);
                     cfg.setProperty("hibernate.connection.password", password);
+                   // cfg.setProperty("hibernate.hbm2ddl.auto",hbm2ddl);
                     cfg.setProperty("hibernate.current_session_context_class", "thread");
                     cfg.setProperty("hibernate.connection.autocommit", "thread");
-                   // cfg.setProperty("hibernate.hbm2ddl.auto","create-drop");
+                   cfg.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+
                     cfg.addAnnotatedClass(User.class);
                     StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                             .applySettings(cfg.getProperties()).build();

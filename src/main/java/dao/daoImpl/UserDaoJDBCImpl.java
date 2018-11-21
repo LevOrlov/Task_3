@@ -6,20 +6,16 @@ import dao.UserDao;
 import model.User;
 
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-
-
+    private Connection connection = DBHelper.getConnection();
     @Override
     public void addUser(User application) {
         try {
-            PreparedStatement preparedStatement = DBHelper.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement("insert into table_name(name,login,password) values (?, ?, ?)");
             preparedStatement.setString(1, application.getName());
             preparedStatement.setString(2, application.getLogin());
@@ -34,7 +30,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void deleteUser(int userId) {
         try {
-            PreparedStatement preparedStatement = DBHelper.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from table_name where id=?");
             // Parameters start with 1
             preparedStatement.setInt(1, userId);
@@ -48,7 +44,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void updateUser(User application) {
         try {
-            PreparedStatement preparedStatement = DBHelper.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement("update table_name set name=?, login=?, password=?" +
                             "where id=?");
             // Parameters start with 1
@@ -68,7 +64,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
         try {
-            Statement statement = DBHelper.getConnection().createStatement();
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select * from table_name");
             while (rs.next()) {
                 System.out.println("fffff");
@@ -91,7 +87,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public User getUserById(int userId) {
         User user = new User();
         try {
-            PreparedStatement preparedStatement = DBHelper.getConnection().
+            PreparedStatement preparedStatement = connection.
                     prepareStatement("select * from table_name where id=?");
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -112,7 +108,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public User getUserByLogin(String login) {
         User user = new User();
         try {
-            PreparedStatement preparedStatement = DBHelper.getConnection().
+            PreparedStatement preparedStatement = connection.
                     prepareStatement("select * from table_name where login=?");
             preparedStatement.setString(1, login);
             ResultSet rs = preparedStatement.executeQuery();
