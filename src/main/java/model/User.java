@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "table_name")
 //TODO  убрать прокси
-@Proxy(lazy=false)//надо оставить иначе ошибка, надо видимо переписать как то без него
+//@Proxy(lazy=false)//надо оставить иначе ошибка, надо видимо переписать как то без него
 public class User {
     @Id
     @GenericGenerator(name="lev" , strategy="increment")

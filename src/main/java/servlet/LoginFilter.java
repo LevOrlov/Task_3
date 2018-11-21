@@ -21,12 +21,35 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
         String loginURI = request.getContextPath() + "/index";
+        String denURI = request.getContextPath() + "/block";
+        User user;
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
-        System.out.println(request.getRequestURI());
+//TODO
         if (loggedIn || loginRequest) {
-            chain.doFilter(request, response);
+            if (loggedIn) {
+                user = (User) session.getAttribute("user");
+                if (user.getRole().equals("admin")) {
+                    chain.doFilter(request, response);
+                } else if (user.getRole().equals("user")) {
+                    System.out.println(request.getRequestURI());
+                    if (request.getRequestURI().contains("/index") || request.getRequestURI().contains("/user")) {
+                        chain.doFilter(request, response);
+                    } else if (
+                            request.getRequestURI().contains("/admin") ||
+                                    request.getRequestURI().contains("/add") ||
+                                    request.getRequestURI().contains("/edit") ||
+                                    request.getRequestURI().contains("/delete")) {
+                        response.sendRedirect(denURI);
+                    } else {
+                        chain.doFilter(request, response);
+                    }
+                }
+            } else {
+                chain.doFilter(request, response);
+            }
+
         } else {
             response.sendRedirect(loginURI);
         }
@@ -34,7 +57,7 @@ public class LoginFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        }
+    }
 
     @Override
     public void destroy() {

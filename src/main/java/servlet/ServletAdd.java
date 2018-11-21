@@ -22,8 +22,7 @@ public class ServletAdd extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String forward = "/add.jsp";
-        req.getRequestDispatcher(forward).forward(req, resp);
+        req.getRequestDispatcher("/add.jsp").forward(req, resp);
 
     }
 
@@ -37,7 +36,6 @@ public class ServletAdd extends HttpServlet {
             user.setPassword(req.getParameter("password"));
             user.setRole("user");
             userDao.addUser(user);
-
             String forward = "/admin.jsp";
             req.setAttribute("users", userDao.getAllUsers());
             req.getRequestDispatcher(forward).forward(req, resp);

@@ -13,20 +13,11 @@ import java.io.IOException;
 
 @WebServlet("/admin")
 public class ServletAdmin extends HttpServlet {
-
     UserServiceImpl userDao = new UserServiceImpl();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        User user = (User) session.getAttribute("user");
-        if (user.getRole().equals("admin")) {
-            System.out.println(user.getLogin());
-            req.setAttribute("users", userDao.getAllUsers());
-            req.getRequestDispatcher("/admin.jsp").forward(req, resp);
-        } else {
-            req.getRequestDispatcher("/accessDen.jsp").forward(req, resp);
-        }
+        req.setAttribute("users", userDao.getAllUsers());
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
 
     }
 
