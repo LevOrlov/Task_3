@@ -1,21 +1,21 @@
 package main.java.dao.daoImpl;
 
 
-
-
 import main.java.dao.UserDao;
 import main.java.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
     private SessionFactory sessionFactory;
-    Session session = null;
+    private Session session;
+    Transaction transObj;
+//TODO доделать последние два метода в трае, но перед этим проверить как работает вообще с траем все остальные
 
     public UserDaoHibernateImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -23,40 +23,63 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void addUser(User application) {
-        session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        int result = (Integer) session.save(application);
-        session.getTransaction().commit();
+        try {
+            session = sessionFactory.getCurrentSession();
+            transObj = session.beginTransaction();
+            int result = (Integer) session.save(application);
+            transObj.commit();
+        } catch (Exception e) {
+            transObj.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void deleteUser(int userId) {
-        session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        User user = (User) session.load(User.class, userId);
-        session.delete(user);
-        session.getTransaction().commit();
-
+        try {
+            session = sessionFactory.getCurrentSession();
+            transObj = session.beginTransaction();
+            User user = (User) session.load(User.class, userId);
+            session.delete(user);
+            transObj.commit();
+        } catch (Exception e) {
+            transObj.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void updateUser(User application) {
-        session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        User user = application;
-        session.saveOrUpdate(user);
-        session.getTransaction().commit();
+        try {
+            session = sessionFactory.getCurrentSession();
+            transObj = session.beginTransaction();
+            User user = application;
+            session.saveOrUpdate(user);
+            transObj.commit();
+        } catch (Exception e) {
+            transObj.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
-        session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(User.class);
-        List<User> empList = criteria.list();
-        session.getTransaction().commit();
+        List<User> empList = null;
+        try {
+            session = sessionFactory.getCurrentSession();
+            transObj = session.beginTransaction();
+            Criteria criteria = session.createCriteria(User.class);
+            empList = criteria.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            transObj.rollback();
+        } finally {
+            session.close();
+        }
         return empList;
-
     }
 
     @Override
