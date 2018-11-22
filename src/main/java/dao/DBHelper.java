@@ -1,6 +1,7 @@
-package dao;
+package main.java.dao;
 
-import model.User;
+import main.java.model.User;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

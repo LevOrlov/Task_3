@@ -1,9 +1,9 @@
-package dao.factoryImpl;
+package main.java.dao.factoryImpl;
 
-import dao.DBHelper;
-import dao.UserDao;
-import dao.daoImpl.UserDaoHibernateImpl;
-import dao.daoImpl.UserDaoJDBCImpl;
+import main.java.dao.DBHelper;
+import main.java.dao.UserDao;
+import main.java.dao.daoImpl.UserDaoHibernateImpl;
+import main.java.dao.daoImpl.UserDaoJDBCImpl;
 
 
 import java.io.IOException;

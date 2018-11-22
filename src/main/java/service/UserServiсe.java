@@ -1,7 +1,8 @@
-package service;
+package main.java.service;
 
-import dao.UserDao;
-import model.User;
+
+import main.java.model.User;
+
 
 
 import java.util.List;

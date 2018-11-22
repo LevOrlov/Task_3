@@ -1,9 +1,12 @@
-package service;
+package main.java.service;
 
 
-import dao.UserDao;
-import dao.factoryImpl.UserDaoFactoryImpl;
-import model.User;
+import main.java.dao.UserDao;
+import main.java.dao.factoryImpl.UserDaoFactoryImpl;
+import main.java.dao.UserDao;
+import main.java.dao.factoryImpl.UserDaoFactoryImpl;
+import main.java.model.User;
+
 
 import java.util.List;
 

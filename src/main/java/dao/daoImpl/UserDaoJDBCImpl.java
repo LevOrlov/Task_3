@@ -1,9 +1,9 @@
-package dao.daoImpl;
+package main.java.dao.daoImpl;
 
-import dao.DBHelper;
 
-import dao.UserDao;
-import model.User;
+import main.java.dao.UserDao;
+import main.java.model.User;
+
 
 
 import java.sql.*;

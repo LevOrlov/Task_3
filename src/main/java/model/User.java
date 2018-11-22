@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;

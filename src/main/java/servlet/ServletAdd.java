@@ -1,11 +1,8 @@
-package servlet;
+package main.java.servlet;
 
 
-import dao.UserDao;
-import dao.factoryImpl.UserDaoFactoryImpl;
-import model.User;
-import service.UserServiceImpl;
-
+import main.java.model.User;
+import main.java.service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

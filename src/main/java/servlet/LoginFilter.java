@@ -1,7 +1,6 @@
-package servlet;
+package main.java.servlet;
 
-import model.User;
-import service.UserServiceImpl;
+import main.java.model.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

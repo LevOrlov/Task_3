@@ -1,11 +1,10 @@
-package dao.daoImpl;
-
-import dao.DBHelper;
-
-import dao.UserDao;
+package main.java.dao.daoImpl;
 
 
-import model.User;
+
+
+import main.java.dao.UserDao;
+import main.java.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
