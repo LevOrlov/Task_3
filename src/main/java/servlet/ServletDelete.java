@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/delete")
+@WebServlet("/admin/delete")
 public class ServletDelete extends HttpServlet {
     UserServiceImpl userDao = new UserServiceImpl();
 

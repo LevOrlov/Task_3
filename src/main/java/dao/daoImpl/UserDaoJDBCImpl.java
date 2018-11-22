@@ -11,7 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private Connection connection = DBHelper.getConnection();
+    private Connection connection =null;
+
+    public UserDaoJDBCImpl(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public void addUser(User application) {
         try {

@@ -15,8 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private SessionFactory sessionFactory = DBHelper.getSessionFactory();
+    private SessionFactory sessionFactory;
     Session session = null;
+
+    public UserDaoHibernateImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void addUser(User application) {

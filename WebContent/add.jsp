@@ -14,7 +14,7 @@
 <body>
 
 
-<form method="POST" action='/add?action=add'>
+<form method="POST" action='/admin/add?action=add'>
     Name : <input
         type="text" name="name"
         value="<c:out value="" />" /> <br />

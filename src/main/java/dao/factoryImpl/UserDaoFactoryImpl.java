@@ -1,5 +1,6 @@
 package dao.factoryImpl;
 
+import dao.DBHelper;
 import dao.UserDao;
 import dao.daoImpl.UserDaoHibernateImpl;
 import dao.daoImpl.UserDaoJDBCImpl;
@@ -25,9 +26,9 @@ public class UserDaoFactoryImpl {
             e.printStackTrace();
         }
         if (dao.equals("jdbc")) {
-            return new UserDaoJDBCImpl();
+            return new UserDaoJDBCImpl(DBHelper.getConnection());
         } else {
-            return new UserDaoHibernateImpl();
+            return new UserDaoHibernateImpl(DBHelper.getSessionFactory());
         }
 
 

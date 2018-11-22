@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/edit")
+@WebServlet("/admin/edit")
 public class ServletEdit extends HttpServlet {
     UserServiceImpl userDao = new UserServiceImpl();
     @Override

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/add")
+@WebServlet("/admin/add")
 public class ServletAdd extends HttpServlet {
     UserServiceImpl userDao = new UserServiceImpl();
 

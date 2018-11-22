@@ -14,7 +14,7 @@
 <body>
 
 
-<form method="POST" action='edit?action=edit&id=<c:out value="${user.getId()}"/>&role=<c:out value="${user.getRole()}"/>'>
+<form method="POST" action='/admin/edit?action=edit&id=<c:out value="${user.getId()}"/>&role=<c:out value="${user.getRole()}"/>'>
     Name : <input
         type="text" name="name"
         value="<c:out value="${user.getName()}" />" /> <br />

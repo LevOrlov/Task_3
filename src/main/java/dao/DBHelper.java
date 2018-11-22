@@ -19,7 +19,6 @@ import java.util.Properties;
 public class DBHelper {
     private static Connection connection = null;
     private static SessionFactory sessionFactory = null;
-    private static StandardServiceRegistry registry;
     private static DBHelper ourInstance = new DBHelper();
 
     private DBHelper() {
@@ -81,10 +80,12 @@ public class DBHelper {
                     cfg.setProperty("hibernate.connection.url", url);
                     cfg.setProperty("hibernate.connection.username", user);
                     cfg.setProperty("hibernate.connection.password", password);
-                   // cfg.setProperty("hibernate.hbm2ddl.auto",hbm2ddl);
+                    cfg.setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
+
+                    //https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/architecture.html#architecture-current-session
                     cfg.setProperty("hibernate.current_session_context_class", "thread");
-                    cfg.setProperty("hibernate.connection.autocommit", "thread");
-                   cfg.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+
+                    cfg.setProperty("hibernate.enable_lazy_load_no_trans", "true");
 
                     cfg.addAnnotatedClass(User.class);
                     StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

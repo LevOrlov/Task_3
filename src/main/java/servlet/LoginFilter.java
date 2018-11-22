@@ -26,21 +26,14 @@ public class LoginFilter implements Filter {
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
-//TODO
+
         if (loggedIn || loginRequest) {
             if (loggedIn) {
                 user = (User) session.getAttribute("user");
                 if (user.getRole().equals("admin")) {
                     chain.doFilter(request, response);
                 } else if (user.getRole().equals("user")) {
-                    System.out.println(request.getRequestURI());
-                    if (request.getRequestURI().contains("/index") || request.getRequestURI().contains("/user")) {
-                        chain.doFilter(request, response);
-                    } else if (
-                            request.getRequestURI().contains("/admin") ||
-                                    request.getRequestURI().contains("/add") ||
-                                    request.getRequestURI().contains("/edit") ||
-                                    request.getRequestURI().contains("/delete")) {
+                    if (request.getRequestURI().contains("/admin")) {
                         response.sendRedirect(denURI);
                     } else {
                         chain.doFilter(request, response);
@@ -49,7 +42,6 @@ public class LoginFilter implements Filter {
             } else {
                 chain.doFilter(request, response);
             }
-
         } else {
             response.sendRedirect(loginURI);
         }
