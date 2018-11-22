@@ -1,5 +1,5 @@
-import java.io.File;
-import java.io.FileInputStream;
+package main.java;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -18,7 +18,7 @@ public class Main {
         rawList = list;
             rawList.add(8);
         System.out.println(rawList.get(0));*/
-        // TODO Почему так работает?
+        // TODO Почему так работает?Hekllo mne
 
 
         InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("config.properties");
